@@ -22,7 +22,8 @@ for subset in subsets:
 
 
 	# DISCARDED_CLASSES = ['person', 'car', 'chair']
-	DISCARDED_CLASSES = list(set(COCO_to_OI_dict.keys()) - {'Train', 'horse'}) # just for testing the code; remove!!!!!!!!!!!
+	DISCARDED_CLASSES = list(set(COCO_to_OI_dict.keys()) - {'train', 'horse'}) # just for testing the code; remove!!!!!!!!!!!
+	DISCARDED_CLASSES = [c.lower() for c in DISCARDED_CLASSES]
 	MY_CLASSES = [c.lower() for c in COCO_to_OI_dict.keys() ]
 	DESIRED_CLASSES = [c for c in MY_CLASSES if c not in DISCARDED_CLASSES] # to sample more
 

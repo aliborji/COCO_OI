@@ -21,9 +21,10 @@ wget http://images.cocodataset.org/zips/val2017.zip
 wget http://images.cocodataset.org/annotations/annotations_trainval2017.zip
 
 unzip -d COCO_data train2017.zip
+unzip -d COCO_data val2017.zip
 unzip -d COCO_data annotations_trainval2017.zip
 
-rm train2017.zip  val2017.zip annotations_trainval2017.zip
+rm train2017.zip val2017.zip annotations_trainval2017.zip
 
 
 
@@ -40,8 +41,8 @@ cd ..
 
 python read_OI_data.py
 python downloader.py 'COCO_OI/validation_images_to_download.csv' --download_folder='COCO_OI/train' --num_processes=5
-python downloader.py 'COCO_OI/test_images_to_download.csv' --download_folder='COCO_OI/images' --num_processes=5
-python downloader.py 'COCO_OI/train_images_to_download.csv' --download_folder='COCO_OI/images' --num_processes=5
+python downloader.py 'COCO_OI/test_images_to_download.csv' --download_folder='COCO_OI/train' --num_processes=5
+python downloader.py 'COCO_OI/train_images_to_download.csv' --download_folder='COCO_OI/train' --num_processes=5
 
 python append_annotation_to_COCO.py
 
@@ -51,7 +52,7 @@ mv COCO_OI/COCO_data/val2017/* COCO_OI/val
 
 mv COCO_OI/COCO_data/annotations/instances_val2017.json COCO_OI/annotations/mv instances_val.json
 
-rm -rf COCO_OI/COCO_data/ 
+# rm -rf COCO_OI/COCO_data/ 
 rm *.csv
 rm *.zip
 
