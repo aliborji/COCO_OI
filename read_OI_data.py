@@ -21,7 +21,8 @@ for subset in subsets:
 	SET_ANNT_DIR = f'{subset}_annotations_new.csv'
 
 
-	DISCARDED_CLASSES = ['person', 'car', 'chair']
+	# DISCARDED_CLASSES = ['person', 'car', 'chair']
+	DISCARDED_CLASSES = list(set(COCO_to_OI_dict.keys()) - {'Train', 'horse'}) # just for testing the code; remove!!!!!!!!!!!
 	MY_CLASSES = [c.lower() for c in COCO_to_OI_dict.keys() ]
 	DESIRED_CLASSES = [c for c in MY_CLASSES if c not in DISCARDED_CLASSES] # to sample more
 
@@ -71,13 +72,11 @@ for subset in subsets:
 	for img_name, box_labels in img_lst.items():
 		# if len(img_short_list) > NUM_IMAGES_TO_DOWNLOAD: break
 
-		# if any([True for x in box_labels if class_mapping[x].lower() in MY_CLASSES]):	# if any of the boxes fall in classes of interest
 		box_classes = []
 		for x in box_labels:
 			if class_mapping[x].lower() in OI_to_COCO_dict.keys():
 				box_classes.append(OI_to_COCO_dict[class_mapping[x].lower()])
 
-		# box_classes = [class_mapping[x].lower() for x in box_labels if class_mapping[x].lower() in COCO_to_OI_dict]
 
 		if any([x in DESIRED_CLASSES for x in box_classes]) and \
 			all([x not in DISCARDED_CLASSES for x in box_classes]): #DESIRED_CLASSES]): # and \
@@ -115,24 +114,8 @@ for subset in subsets:
 				continue
 
 			if class_mapping[x].lower() not in OI_to_COCO_dict.keys(): continue
-			# import pdb; pdb.set_trace()
-			# im_name =  + im_name
-			# if class_mapping[box_label].lower() in OI_to_COCO_dict: 	
-			# if im_name in already_added_imgs:
-			# 	# annts += row
-			# 	f.write(row)
-			# elif im_name not in already_added_imgs:
-			# 	already_added_imgs = []
-			# if im_name in img_short_list:
 			if img_indices.get(im_name,False):
-				# import pdb; pdb.set_trace()
-				# already_added_imgs.append(im_name)
 				f.write(row)
-
-	# with open(path.join('./OpenImages', SET_ANNT_DIR), 'w') as f:
-		# f.write(annts)
-	# f.close()
-
 
 	# print(img_short_list)
 
