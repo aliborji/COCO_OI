@@ -46,16 +46,17 @@ python downloader.py 'COCO_OI/train_images_to_download.csv' --download_folder='C
 
 python append_annotation_to_COCO.py
 
+ulimit -S -s unlimited
 
 mv COCO_OI/COCO_data/train2017/* COCO_OI/train
 mv COCO_OI/COCO_data/val2017/* COCO_OI/val
 
-mv COCO_OI/COCO_data/annotations/instances_val2017.json COCO_OI/annotations/mv instances_val.json
+mv COCO_OI/COCO_data/annotations/instances_val2017.json COCO_OI/annotations/instances_val.json
 
 # rm -rf COCO_OI/COCO_data/ 
-rm *.csv
-rm *.zip
-
+rm ./COCO_OI/*.csv
+#rm ./COCO_OI/*.zip
+rm -rf COCO_OI/COCO_data
 
 # get the detection code from here
 # git clone https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch.git
