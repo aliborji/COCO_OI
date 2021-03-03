@@ -21,7 +21,7 @@ for subset in subsets:
 	SET_ANNT_DIR = f'{subset}_annotations_new.csv'
 
 
-	DISCARDED_CLASSES = ['person', 'car', 'chair', 'boat', 'book', 'tie', 'cup', 'bottle', 'umbrella']
+	DISCARDED_CLASSES = ['person', 'car', 'chair', 'boat', 'book', 'tie', 'cup', 'bottle', 'umbrella', 'bowl', 'traffic light', 'banana', 'handbag', 'truck', 'dining table', 'bench']
 	#DISCARDED_CLASSES = list(set(COCO_to_OI_dict.keys()) - {'train', 'horse'}) # just for testing the code; remove!!!!!!!!!!!
 	DISCARDED_CLASSES = [c.lower() for c in DISCARDED_CLASSES]
 	MY_CLASSES = [c.lower() for c in COCO_to_OI_dict.keys() ]

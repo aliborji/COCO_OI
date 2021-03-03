@@ -8,7 +8,7 @@ pip install pycocotools numpy==1.16.0 opencv-python tqdm tensorboard tensorboard
 mkdir datasets
 mv ../COCO_OI ./datasets/
 
-mv ../COCO_OI.yaml	./projects
+mv ../COCO_OI.yml  ./projects
 
 
 
@@ -24,7 +24,7 @@ pip install webcolors
 # python train.py -c 0 -p birdview_vehicles --head_only True --lr 5e-3 --batch_size 32 --load_weights weights/efficientdet-d0.pth  --num_epochs 10 --save_interval 100
 
 # to start
-CUDA_VISIBLE_DEVICES=0 python train.py -c 0 -p COCO_OI --head_only False --lr 5e-3 --batch_size 32 --load_weights weights/efficientdet-d0.pth  --num_epochs 10 --save_interval 100
+CUDA_VISIBLE_DEVICES=0 python train.py -c 0 -p COCO_OI --head_only False --lr 5e-3 --batch_size 32 --load_weights weights/efficientdet-d0.pth  --num_epochs 16 --save_interval 500
 
 # to resume
 #CUDA_VISIBLE_DEVICES=0 python train.py -c 0 -p COCO_OI --head_only False --lr 1e-3 --batch_size 32 --load_weights last  --num_epochs 16 --save_interval 100
