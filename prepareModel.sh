@@ -2,7 +2,7 @@
 cd Yet-Another-EfficientDet-Pytorch
 
 # 1. ge the code
-pip install pycocotools numpy==1.16.0 opencv-python tqdm tensorboard tensorboardX pyyaml webcolors matplotlib
+# pip install pycocotools numpy==1.16.0 opencv-python tqdm tensorboard tensorboardX pyyaml webcolors matplotlib
 
 
 mkdir datasets
@@ -20,7 +20,7 @@ wget https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch/releases/downlo
 
 
 # 2. train the model  (c stands for compound [0...7X]
-pip install webcolors
+# pip install webcolors
 # python train.py -c 0 -p birdview_vehicles --head_only True --lr 5e-3 --batch_size 32 --load_weights weights/efficientdet-d0.pth  --num_epochs 10 --save_interval 100
 
 # to start
