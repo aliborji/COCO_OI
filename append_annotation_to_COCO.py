@@ -21,8 +21,20 @@ print(COCO_train_json.keys())
 print(COCO_train_json['categories'])
 
 
-last_img_id = COCO_train_json['images'][-1]['id']
-last_box_id = COCO_train_json['annotations'][-1]['id']
+# last_img_id = COCO_train_json['images'][-1]['id']
+# last_box_id = COCO_train_json['annotations'][-1]['id']
+
+MAX_IMG_ID = -1
+for x in COCO_train_json['images']: #[-1]['id']
+	if x['id'] > MAX_IMG_ID:
+		MAX_IMG_ID = x['id']
+last_img_id = MAX_IMG_ID
+
+MAX_BOX_ID = -1
+for x in COCO_train_json['annotations']: #[-1]['id']
+	if x['id'] > MAX_BOX_ID:
+		MAX_BOX_ID = x['id']
+last_box_id = MAX_BOX_ID
 print(last_img_id, last_box_id)
 
 
