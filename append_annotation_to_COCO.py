@@ -115,12 +115,12 @@ for BOX_FILE in BOX_FILES:
             "image_id": img_id,
             "category_id": map_to_catID[OI_to_COCO_dict.get(class_mapping[box_label], -1)],
             "bbox": [
-                int(minX * im_width),  # top left x
-                int(minY * im_height),  # top left x
-                int((maxX - minX) * im_width),	  # box width
-                int((maxY - minY) * im_height)	  # box height
+                minX * im_width,  # top left x
+                minY * im_height,  # top left x
+                (maxX - minX) * im_width,	  # box width
+                (maxY - minY) * im_height	  # box height
             ],
-            "area": int((maxX - minX) * im_width) * int((maxY - minY) * im_height),
+            "area": (maxX - minX) * im_width * (maxY - minY) * im_height,
             "segmentation": [],
             "iscrowd": 0
         })		
