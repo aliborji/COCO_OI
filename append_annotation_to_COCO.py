@@ -78,17 +78,22 @@ for IMG_FILE in IMG_FILES:
 	for img in imgs:
 		last_img_id += 1
 		# im = Image.open(path.join('./COCO_OI/',img.strip()+'.jpg'))
-		im = Image.open(path.join('./COCO_OI/train', img.strip().split('/')[-1]+'.jpg'))
-		im_w, im_h = im.width, im.height
+		im_path = path.join('./COCO_OI/train', img.strip().split('/')[-1]+'.jpg')
+		im = Image.open(im_path)
+		im_ow, im_oh = im.width, im.height
+		# resize the image while keeping the aspect ratio; change the width to 640 and adjust the height accordingly
+		im = im.thumbnail((640,640), Image.ANTIALIAS)
+		im.save(im_path)
+
 		imgs_to_add.append({
 	            "id": last_img_id,
 	            "license": 1,
 	            "file_name": img.strip().split('/')[-1]+'.jpg',
-	            "height": im_h,
-	            "width": im_w,
+	            "height": im.height,
+	            "width": im.width,
 	            "date_captured": ""
 	        })
-		tmp_img_dict[img.strip().split('/')[-1]] = [last_img_id, im_w, im_h]
+		tmp_img_dict[img.strip().split('/')[-1]] = [last_img_id, im.width, im.height, (im.width/im_ow, im.height/im_oh)]
 		
 
 
@@ -118,21 +123,25 @@ for BOX_FILE in BOX_FILES:
 
 	for row in boxes:
 		last_box_id += 1
+
+		img_id, im_width, im_height, (ratio_w, ratio_h) = tmp_img_dict[img_name]
+
 		img_name, _, box_label, _, minX, maxX, minY, maxY, *_ = row.strip().split(',')
 		minX, maxX, minY, maxY = float(minX), float(maxX), float(minY), float(maxY)
-		img_id, im_width, im_height = tmp_img_dict[img_name]
+		minX, maxX, minY, maxY = minX * im_width, maxX * im_width, minY * im_height, maxY * im_height
+		minX, maxX, minY, maxY = minX * ratio_w, maxX * ratio_w, minY * ratio_h, maxY * ratio_h
 
 		boxes_to_add.append({
             "id": last_box_id,
             "image_id": img_id,
             "category_id": map_to_catID[OI_to_COCO_dict.get(class_mapping[box_label], -1)],
             "bbox": [
-                minX * im_width,  # top left x
-                minY * im_height,  # top left x
-                (maxX - minX) * im_width,	  # box width
-                (maxY - minY) * im_height	  # box height
+                minX ,  # top left x
+                minY ,  # top left x
+                (maxX - minX) ,	  # box width
+                (maxY - minY) 	  # box height
             ],
-            "area": (maxX - minX) * im_width * (maxY - minY) * im_height,
+            "area": (maxX - minX) * (maxY - minY),
             "segmentation": [],
             "iscrowd": 0
         })		
