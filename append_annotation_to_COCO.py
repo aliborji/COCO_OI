@@ -25,13 +25,13 @@ print(COCO_train_json['categories'])
 # last_box_id = COCO_train_json['annotations'][-1]['id']
 
 MAX_IMG_ID = -1
-for x in COCO_train_json['images']: #[-1]['id']
+for x in COCO_train_json['images']: 
 	if x['id'] > MAX_IMG_ID:
 		MAX_IMG_ID = x['id']
 last_img_id = MAX_IMG_ID
 
 MAX_BOX_ID = -1
-for x in COCO_train_json['annotations']: #[-1]['id']
+for x in COCO_train_json['annotations']: 
 	if x['id'] > MAX_BOX_ID:
 		MAX_BOX_ID = x['id']
 last_box_id = MAX_BOX_ID
@@ -67,7 +67,6 @@ print(OI_to_COCO_dict)
 # 3.
 # 3.1 add images
 imgs_to_add = []
-# IMG_FILE = 'oidv6-train-annotations-bbox.csv'
 IMG_FILES = ['train_images_to_download.csv', 'test_images_to_download.csv', 'validation_images_to_download.csv']
 # IMG_FILES = ['validation_images_to_download.csv']
 tmp_img_dict = {}
@@ -77,12 +76,11 @@ for IMG_FILE in IMG_FILES:
 
 	for img in imgs:
 		last_img_id += 1
-		# im = Image.open(path.join('./COCO_OI/',img.strip()+'.jpg'))
 		im_path = path.join('./COCO_OI/train', img.strip().split('/')[-1]+'.jpg')
 		im = Image.open(im_path)
 		im_ow, im_oh = im.width, im.height
 		# resize the image while keeping the aspect ratio; change the width to 640 and adjust the height accordingly
-		im = im.thumbnail((640,640), Image.ANTIALIAS)
+		im.thumbnail((640,640), Image.ANTIALIAS)
 		im.save(im_path)
 
 		imgs_to_add.append({
@@ -117,8 +115,6 @@ for BOX_FILE in BOX_FILES:
 	with open(path.join('./COCO_OI/', BOX_FILE), 'r') as f:
 		boxes = f.readlines()
 
-	# if BOX_FILE == 'train_annotations_new.csv': 
-		# import pdb; pdb.set_trace()
 	boxes = boxes[1:] # skip the first row in train csv
 
 	for row in boxes:
@@ -137,7 +133,7 @@ for BOX_FILE in BOX_FILES:
             "category_id": map_to_catID[OI_to_COCO_dict.get(class_mapping[box_label], -1)],
             "bbox": [
                 minX ,  # top left x
-                minY ,  # top left x
+                minY ,  # top left y
                 (maxX - minX) ,	  # box width
                 (maxY - minY) 	  # box height
             ],
