@@ -78,7 +78,6 @@ for IMG_FILE in IMG_FILES:
 		last_img_id += 1
 		im_path = path.join('./COCO_OI/train', img.strip().split('/')[-1]+'.jpg')
 		im = Image.open(im_path)
-		im_ow, im_oh = im.width, im.height
 		# resize the image while keeping the aspect ratio; change the width to 640 and adjust the height accordingly
 		im.thumbnail((640,640), Image.ANTIALIAS)
 		im.save(im_path)
@@ -91,7 +90,7 @@ for IMG_FILE in IMG_FILES:
 	            "width": im.width,
 	            "date_captured": ""
 	        })
-		tmp_img_dict[img.strip().split('/')[-1]] = [last_img_id, im.width, im.height, (im.width/im_ow, im.height/im_oh)]
+		tmp_img_dict[img.strip().split('/')[-1]] = [last_img_id, im.width, im.height] 
 		
 
 
@@ -120,7 +119,7 @@ for BOX_FILE in BOX_FILES:
 	for row in boxes:
 		last_box_id += 1
 
-		img_id, im_width, im_height, (ratio_w, ratio_h) = tmp_img_dict[img_name]
+		img_id, im_width, im_height = tmp_img_dict[img_name]
 
 		img_name, _, box_label, _, minX, maxX, minY, maxY, *_ = row.strip().split(',')
 		minX, maxX, minY, maxY = float(minX), float(maxX), float(minY), float(maxY)
