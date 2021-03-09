@@ -119,9 +119,9 @@ for BOX_FILE in BOX_FILES:
 	for row in boxes:
 		last_box_id += 1
 
+		img_name, _, box_label, _, minX, maxX, minY, maxY, *_ = row.strip().split(',')
 		img_id, im_width, im_height = tmp_img_dict[img_name]
 
-		img_name, _, box_label, _, minX, maxX, minY, maxY, *_ = row.strip().split(',')
 		minX, maxX, minY, maxY = float(minX), float(maxX), float(minY), float(maxY)
 		minX, maxX, minY, maxY = minX * im_width, maxX * im_width, minY * im_height, maxY * im_height
 
