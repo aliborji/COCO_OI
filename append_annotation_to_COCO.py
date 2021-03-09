@@ -125,7 +125,6 @@ for BOX_FILE in BOX_FILES:
 		img_name, _, box_label, _, minX, maxX, minY, maxY, *_ = row.strip().split(',')
 		minX, maxX, minY, maxY = float(minX), float(maxX), float(minY), float(maxY)
 		minX, maxX, minY, maxY = minX * im_width, maxX * im_width, minY * im_height, maxY * im_height
-		minX, maxX, minY, maxY = minX * ratio_w, maxX * ratio_w, minY * ratio_h, maxY * ratio_h
 
 		boxes_to_add.append({
             "id": last_box_id,
