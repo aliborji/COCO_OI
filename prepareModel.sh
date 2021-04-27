@@ -46,4 +46,4 @@ CUDA_VISIBLE_DEVICES=0 python train.py -c 0 -p COCO_OI --head_only False --lr 5e
 # python coco_eval.py -c 0 -p birdview_vehicles -w "logs/birdview_vehicles/{weight_file[-1]}"
 
 weight_file='last.pth'
-python coco_eval.py -c 0 -p birdview_vehicles -w "logs/COCO_OI/$weight_file"
+python coco_eval.py -c 0 -p COCO_OI -w "logs/COCO_OI/$weight_file"
